@@ -1,6 +1,10 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
 <h1> User Sign-in Page </h1>
 
-<%= form_for (:session) do |f| %>
+<%= form_for(:session, url: login_path) do |f| %>
   <%= f.text_field :username %><br>
   <%= f.password_field :password %> <br>
   <%= f.submit "Sign-In" %>
