@@ -1,0 +1,20 @@
+<h1> All posts</h1>
+
+<% find_user %>
+<% @posts.each do |post| %>
+  <br>
+  Title = <%= post.title %> <br>
+  Author =
+    <% if @user.nil? %>
+      <%= "Censored" %> <br>
+    <% else %>
+      <%= post.username %> <br>
+    <% end %>
+    Content = <%= post.content %> <br>
+  <br>
+<% end %>
+<% if !@user.nil? %>
+  <%= link_to "Make new one", new_post_path %> <br>
+<% end %>
+
+<%= link_to "<< Back to Home", users_path %>
