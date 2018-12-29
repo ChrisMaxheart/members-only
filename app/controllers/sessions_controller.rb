@@ -7,9 +7,11 @@ class SessionsController < ApplicationController
     user = User.find_by(:username => params[:session][:username])
     if user && user.authenticate(params[:session][:password])
       flash.now[:success] = "success!"
+      cookies.permanent[:login_token] = user.login_token
+      render :new
     else
       flash.now[:danger] = "failed!"
+      render :new
     end
-    render :new
   end
 end
