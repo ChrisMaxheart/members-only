@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :users
+  root to: 'users#index'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
