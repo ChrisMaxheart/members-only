@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(:username => params[:session][:username])
-    if user && user.authenticate(params[:session][:password])
+    my_user = User.find_by(:username => params[:session][:username])
+    if my_user && my_user.authenticate(params[:session][:password])
       flash[:success] = "success!"
-      cookies.permanent[:login_token] = user.login_token
+      cookies.permanent[:login_token] = my_user.login_token
       redirect_to users_path
     else
       flash.now[:danger] = "failed!"
@@ -15,13 +15,9 @@ class SessionsController < ApplicationController
     end
   end
 
-  def find_user
-    @user ||= User.find_by(:login_token => cookies.permanent[:login_token])
-  end
-
   def destroy
-    current_user = find_user
-    if current_user.nil?
+    find_user
+    if @user.nil?
       flash[:danger] = "Not signed in"
     else
       cookies.permanent[:login_token] = nil
